@@ -1,12 +1,42 @@
-import React from 'react'
-import Logo from '../images/plaza-soft.webp'
+import { useEffect } from 'react';
+import { useGetApiCustomerPortal } from '../apis/useGetApiCustomerPortal'
 
 const Header = () => {
+
+    const { data } = useGetApiCustomerPortal();
+
+    console.log(data)
+
+    useEffect(() => {
+        if (data.logo) {
+            // Actualiza el favicon
+            const favicon = document.querySelector("link[rel='icon']");
+            if (favicon) {
+                favicon.href = data.logo;
+            } else {
+                const newFavicon = document.createElement("link");
+                newFavicon.rel = "icon";
+                newFavicon.href = data.logo;
+                document.head.appendChild(newFavicon);
+            }
+        }
+
+        if (data.title) {
+            // Actualiza el título de la página
+            document.title = data.title;
+        }
+    }, [data.logo, data.title]);
+
     return (
-        <div className=" h-20 justify-center flex items-center bg-white mb-10 shadow">
-            <img src={Logo} alt={Logo} />
-        </div>
+        <>
+            {
+                <div style={{ backgroundColor: `#${data.headerColorHEX}` }} className=" sticky top-0 h-20 justify-center flex items-center mb-10 shadow">
+                    <a href=""><img src={data.logo} alt={data.logo} height={80} width={240} /></a>
+                </div>
+            }
+        </>
     )
+
 }
 
 export default Header
