@@ -100,7 +100,7 @@ const FormRegister = () => {
                     </div>
 
                     <button className="w-full rounded-lg text-white bg-plaza-color p-2.5 mb-8 border-r-emerald-800">Continuar</button>
-                    <div className="grid grid-cols-6 gap-">
+                    <div className="grid grid-cols-6 gap-2 pb-5">
                         <div className="col-start-1 col-end-3">
                             <p>ID Sitio: {data.idSite}</p>
                             <p>ID Canal: {data.idChannel}</p>
