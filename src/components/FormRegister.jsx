@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { useGetApiCustomerPortal } from '../apis/useGetApiCustomerPortal';
 
-const FormRegister = () => {
+const FormRegister = ({ onSubmit }) => {
+
+    const handleSubmit = (event) => {
+        event.preventDefault(); // Previene el comportamiento por defecto del formulario
+        onSubmit(); // Llama a la función pasada como prop
+    };
+
+
     const { data } = useGetApiCustomerPortal();
     const [tipoPersona, setTipoPersona] = useState(""); // Estado para controlar el tipo de persona seleccionado
 
@@ -25,7 +32,7 @@ const FormRegister = () => {
         <div className="flex items-center justify-center m-auto">
             <div>
                 <h1 className="my-5 text-center text-3xl">{data.portalTittle}</h1>
-                <form className="mx-4 md:mx-10">
+                <form onSubmit={handleSubmit} className="mx-4 md:mx-10">
                     <div className="text-center flex justify-center items-center gap-6">
                         <div className="flex items-center">
                             <input

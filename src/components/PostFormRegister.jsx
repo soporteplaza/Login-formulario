@@ -1,11 +1,15 @@
 import React from 'react'
+import { useGetApiCustomerPortal } from '../apis/useGetApiCustomerPortal';
 
 const PostFormRegister = () => {
+
+    const { data } = useGetApiCustomerPortal();
+
     return (
         <div>
             <div className="flex items-center justify-center m-auto">
                 <div>
-                    <h1 className="my-5 text-center text-3xl">titulo</h1>
+                    <h1 className="my-2 text-center text-3xl">{data.portalTittle}</h1>
                     <form className="mx-4 md:mx-8">
                         <div id='Columna 1' className="grid md:grid-cols-2 md:gap-4">
                             <div className="">
@@ -182,7 +186,7 @@ const PostFormRegister = () => {
                                 required
                             />
                         </div>
-                        <div id='Columna 7' className="flex items-center mb-5">
+                        <div id='Columna 7' className="flex items-center mb-2">
                             <input
                                 id="link-checkbox"
                                 type="checkbox"
@@ -197,14 +201,14 @@ const PostFormRegister = () => {
                                 </a>.
                             </label>
                         </div>
-                        <button className="w-full rounded-lg text-white bg-plaza-color p-2.5 mb-8 border-r-emerald-800">Continuar</button>
-                        <div className="grid grid-cols-6 gap-2 pb-5">
+                        <button className="w-full rounded-lg text-white bg-plaza-color p-2.5 mb-2 border-r-emerald-800">Continuar</button>
+                        <div className="grid grid-cols-6 gap-2 pb-4">
                             <div className="col-start-1 col-end-3">
-                                <p>ID Sitio: </p>
-                                <p>ID Canal: </p>
+                                <p>ID Sitio:{data.idSite}</p>
+                                <p>ID Canal:{data.idChanel} </p>
                             </div>
                             <div className="col-end-7 col-span-2 flex justify-end text-end">
-                                <img src="" alt="Favicon" height={50} width={50} />
+                                <img src={data.favIco} alt="Favicon" height={50} width={50} />
                             </div>
                         </div>
                     </form>

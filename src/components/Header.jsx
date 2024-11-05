@@ -30,8 +30,8 @@ const Header = () => {
     return (
         <>
             {
-                <div style={{ backgroundColor: `#${data.headerColorHEX}` }} className=" sticky top-0 h-20 justify-center flex items-center mb-10 shadow">
-                    <a href=""><img src={data.logo} alt={data.logo} height={80} width={240} /></a>
+                <div style={{ backgroundColor: `#${data.headerColorHEX}` }} className=" sticky top-0 h-16 justify-center flex items-center mb-5 shadow">
+                    <a href=""><img src={data.logo} alt={data.logo} height={80} width={200} /></a>
                 </div>
             }
         </>
