@@ -97,8 +97,8 @@ const PostFormRegister = () => {
         <div>
             <div className="flex items-center justify-center m-auto">
                 <div>
+                    <button onClick={resetLocalStorage} className="w-1/5 rounded-lg text-white bg-red-600 p-1.5 border-r-emerald-800">Cancelar</button>
                     <h1 className="my-2 text-center text-3xl">{data.portalTittle}</h1>
-                    <button onClick={resetLocalStorage} className="w-1/5 rounded-lg text-white bg-red-600 p-2.5 mb-2 ml-5 border-r-emerald-800">Cancelar</button>
                     <form className="mx-4 md:mx-8">
                         <div id='Columna 1' className="grid md:grid-cols-2 md:gap-4">
                             <div>
@@ -240,7 +240,7 @@ const PostFormRegister = () => {
                                     required
                                     className="mt-1 w-full p-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block"
                                 >
-                                    <option value="" disabled defaultValue>
+                                    <option disabled defaultValue required>
                                         Seleccione el tipo
                                     </option>
                                     <option value="1">Colombia</option>
