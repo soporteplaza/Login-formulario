@@ -21,9 +21,9 @@ const Header = () => {
             }
         }
 
-        if (data.title) {
+        if (data.portalTittle) {
             // Actualiza el título de la página
-            document.title = data.title;
+            document.title = data.portalTittle;
         }
     }, [data.logo, data.title]);
 

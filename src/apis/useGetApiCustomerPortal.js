@@ -15,7 +15,7 @@ export const useGetApiCustomerPortal = () => {
                 const response = await axios.get(`${endpoint}${namePortal}`);
                 setData(response.data);
             } catch (error) {
-                alert('Hubo un error en la conexión del API', error)
+                console.log('Hubo un error en la conexión del API', error);
             } finally {
                 setLoading(false);
             }
