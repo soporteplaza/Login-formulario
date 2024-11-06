@@ -10,6 +10,7 @@ const FormRegister = ({ onSubmit }) => {
         onSubmit(); // Llama a la función pasada como prop
     };
 
+    ///dff
 
     const { data } = useGetApiCustomerPortal();
     const [tipoPersona, setTipoPersona] = useLocalStorage("TipoDePersona", ''); // Estado para controlar el tipo de persona seleccionado
