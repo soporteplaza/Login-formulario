@@ -7,70 +7,104 @@ const PostFormRegister = () => {
 
     const { data } = useGetApiCustomerPortal();
 
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useLocalStorage('Correo electronico','');
     const [emailError, setEmailError] = useState('');
     const [celular, setCelular] = useLocalStorage('Celular', '');
+    const [celularError, setCelularError] = useState('');
+    const [nombre, setNombre] = useLocalStorage('PrimerNombre', '');
+    const [nombreError, setNombreError] = useState('');
+    const [nombre2, setNombre2] = useLocalStorage('SegundoNombre', '');
+    const [nombre2Error, setNombre2Error] = useState('');
+    const [apellido, setApellido] = useLocalStorage('PrimerApellido', '');
+    const [apellidoError, setApellidoError] = useState('');
+    const [apellido2, setApellido2] = useLocalStorage('SegundoApellido', '');
+    const [apellido2Error, setApellido2Error] = useState('');
 
-    const [formValues, setFormValues] = useState({
-        primerNombre: '',
-        segundoNombre: '',
-        primerApellido: '',
-        segundoApellido: ''
-    });
+    const validateNombre = (e) => {
 
-    const [errors, setErrors] = useState({
-        primerNombre: '',
-        segundoNombre: '',
-        primerApellido: '',
-        segundoApellido: ''
-    });
+        const value = e.target.value;
+        setNombre(value);
 
-    const handleChange = (e) => {
-        const { id, value } = e.target;
-
-        setFormValues({
-            ...formValues,
-            [id]: value
-        });
-
-        // Limpiar el mensaje de error si cumple con la longitud mínima
-        if ((id.includes('Nombre') && value.length >= 2) || (id.includes('Apellido') && value.length >= 3)) {
-            setErrors({
-                ...errors,
-                [id]: ''
-            });
+        // Validar al escribir si hay menos de 2 caracteres
+        if (value.length < 2) {
+            setNombreError('El nombre debe tener al menos 2 caracteres.');
+        } else {
+            setNombreError(''); // Limpia el mensaje de error si la longitud es válida
         }
     };
-
-    const handleBlur = (e) => {
-        const { id, value } = e.target;
-        const minLength = id.includes('Nombre') ? 2 : 3;
-
-        // Validación: si el valor tiene menos del mínimo requerido, muestra el error y borra el campo
-        if (value.length < minLength) {
-            setErrors({
-                ...errors,
-                [id]: `El campo debe tener mas de ${minLength} caracteres.`
-            });
-            setFormValues({
-                ...formValues,
-                [id]: ''
-            });
+    const validateNombreBlur = () => {
+        // Limpiar el input y mostrar error si tiene menos de 2 caracteres
+        if (nombre.length < 2) {
+            setNombre('');
+            setNombreError('El nombre debe tener al menos 2 caracteres.');
         }
     };
+    const validateNombre2 = (e) => {
 
+        const value = e.target.value;
+        setNombre2(value);
+
+        // Validar al escribir si hay menos de 3 caracteres
+        if (value.length < 3) {
+            //vacio
+        } else {
+            setNombre2Error(''); // Limpia el mensaje de error si la longitud es válida
+        }
+    }
+    const validateNombre2Blur = () => {
+        // Limpiar el input y mostrar error si tiene menos de 3 caracteres
+        if (nombre2.length < 3) {
+            setNombre2('');
+            setNombre2Error('El nombre debe tener al menos 3 caracteres.');
+        }
+    };
+    ///////////////
+    const validateApellido = (e) => {
+
+        const value = e.target.value;
+        setApellido(value);
+
+        // Validar al escribir si hay menos de 2 caracteres
+        if (value.length < 2) {
+            setApellidoError('El nombre debe tener al menos 2 caracteres.');
+        } else {
+            setApellidoError(''); // Limpia el mensaje de error si la longitud es válida
+        }
+    };
+    const validateApellidoBlur = () => {
+        // Limpiar el input y mostrar error si tiene menos de 2 caracteres
+        if (apellido.length < 2) {
+            setApellido('');
+            setApellidoError('El nombre debe tener al menos 2 caracteres.');
+        }
+    };
+    const validateApellido2 = (e) => {
+
+        const value = e.target.value;
+        setApellido2(value);
+
+        // Validar al escribir si hay menos de 3 caracteres
+        if (value.length < 3) {
+            //vacio
+        } else {
+            setApellido2Error(''); // Limpia el mensaje de error si la longitud es válida
+        }
+    }
+    const validateApellido2Blur = () => {
+        // Limpiar el input y mostrar error si tiene menos de 3 caracteres
+        if (apellido2.length < 3) {
+            setApellido2('');
+            setApellido2Error('El nombre debe tener al menos 3 caracteres.');
+        }
+    };
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
         setEmailError(''); // Limpiar el error al cambiar el valor
 
-        // Guardar el valor en localStorage
-        localStorage.setItem('email', value);
-
-
     };
     const handleEmailBlur = () => {
         // Expresión regular para validar el formato soporte@plaza.net
-        const emailPattern = /^soporte@plaza\.net$/.co;
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@(gmail\.com|plaza\.net|plaza\.net\.co|gmail\.com\.co)$/;
 
         // Verificar si el correo coincide con el patrón
         if (!emailPattern.test(email)) {
@@ -78,26 +112,36 @@ const PostFormRegister = () => {
             setEmail(''); // Limpiar el input si no cumple con el formato
         }
     };
-    const handleChangeCelular = (e) => {
+    //***************** */
+    const validateCelular = (e) => {
         const value = e.target.value.replace(/\D/g, '') // Elimina caracteres no numéricos
-        if (value.length <= 10) {
-            setCelular(value)
+
+        setCelular(value);
+        // Validar al escribir si hay menos de 3 caracteres
+        if (value.length == 3) {
+            //vacio
+        } else {
+            setCelularError(''); // Limpia el mensaje de error si la longitud es válida
         }
     }
-
+    const celularBlur = () => {
+        // Limpiar el input y mostrar error si tiene menos de 3 caracteres
+        if (celular.length < 10) {
+            setCelular('');
+            setCelularError(' Ingrese los 10 digitos de celular');
+        }
+    };
     const resetLocalStorage = () => {
         localStorage.setItem("Celular", "");
         localStorage.clear();
         reload();
     }
 
-
-
     return (
         <div>
             <div className="flex items-center justify-center m-auto">
                 <div>
-                    <button onClick={resetLocalStorage} className="w-1/5 rounded-lg text-white bg-red-600 p-1.5 border-r-emerald-800">Cancelar</button>
+                    {/* <button onClick={resetLocalStorage} className="w-1/5 rounded-lg text-white bg-red-600 p-1.5 border-r-emerald-800">Cancelar</button> */}
                     <h1 className="my-2 text-center text-3xl">{data.portalTittle}</h1>
                     <form className="mx-4 md:mx-8">
                         <div id='Columna 1' className="grid md:grid-cols-2 md:gap-4">
@@ -107,26 +151,27 @@ const PostFormRegister = () => {
                                 </label>
                                 <input
                                     type="text"
-                                    id="primerNombre"
-                                    value={formValues.primerNombre}
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
+                                    placeholder="Ingrese su primer nombre"
+                                    value={nombre}
+                                    onBlur={validateNombreBlur}
+                                    onChange={validateNombre}
                                     className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mt-1"
                                     required
                                 />
-                                {errors.primerNombre && <p style={{ color: 'red', fontSize: '12px' }}>{errors.primerNombre}</p>}
+                                {nombreError && <p style={{ fontSize: '10px', color: 'red' }}>{nombreError}</p>}
                             </div>
                             <div>
                                 <label htmlFor="segundoNombre">Segundo nombre</label>
                                 <input
                                     type="text"
                                     id="segundoNombre"
-                                    value={formValues.segundoNombre}
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
+                                    placeholder='Ingrese su segundo nombre'
+                                    value={nombre2}
+                                    onBlur={validateNombre2Blur}
+                                    onChange={validateNombre2}
                                     className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mt-1"
                                 />
-                                {errors.segundoNombre && <p style={{ color: 'red', fontSize: '12px' }}>{errors.segundoNombre}</p>}
+                                {nombre2Error && <p style={{ fontSize: '10px', color: 'red' }}>{nombre2Error}</p>}
                             </div>
                         </div>
                         <div id='Columna 2' className="grid md:grid-cols-2 md:gap-4 mt-2">
@@ -137,25 +182,27 @@ const PostFormRegister = () => {
                                 <input
                                     type="text"
                                     id="primerApellido"
-                                    value={formValues.primerApellido}
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
+                                    placeholder='Ingrese su primer apellido'
+                                    value={apellido}
+                                    onBlur={validateApellidoBlur}
+                                    onChange={validateApellido}
                                     className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mt-1"
                                     required
                                 />
-                                {errors.primerApellido && <p style={{ color: 'red', fontSize: '12px' }}>{errors.primerApellido}</p>}
+                                {apellidoError && <p style={{ fontSize: '10px', color: 'red' }}>{apellidoError}</p>}
                             </div>
                             <div>
                                 <label htmlFor="segundoApellido">Segundo apellido</label>
                                 <input
                                     type="text"
                                     id="segundoApellido"
-                                    value={formValues.segundoApellido}
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
+                                    placeholder='Ingrese su segundo apellido'
+                                    value={apellido2}
+                                    onBlur={validateApellido2Blur}
+                                    onChange={validateApellido2}
                                     className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mt-1"
                                 />
-                                {errors.segundoApellido && <p style={{ color: 'red', fontSize: '12px' }}>{errors.segundoApellido}</p>}
+                                {apellido2Error && <p style={{ fontSize: '10px', color: 'red' }}>{apellido2Error}</p>}
                             </div>
                         </div>
                         <div id='Columna 3' className=" flex mt-2">
@@ -173,7 +220,7 @@ const PostFormRegister = () => {
                                     placeholder="Correo electronico"
                                     required
                                 />
-                                {emailError && <p style={{ color: 'red', fontSize: '12px' }}>{emailError}</p>}
+                                {emailError && <p style={{ color: 'red', fontSize: '10px' }}>{emailError}</p>}
                             </div>
                             <div className=" w-5/12 ml-2">
                                 <label className="">
@@ -219,14 +266,16 @@ const PostFormRegister = () => {
                                     pattern="[0-9]*"
                                     id="celular"
                                     value={celular}
-                                    onChange={handleChangeCelular}
+                                    onBlur={celularBlur}
+                                    onChange={validateCelular}
                                     maxLength={10}
                                     className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 mt-1"
                                     placeholder="Número celular"
                                     required
                                 />
                                 <p id="celular-description" style={{ fontSize: '10px' }} className="mt-1 ml-1 text-gray-500">
-                                    Dígitos ingresados: {celular.length}/10
+                                    Dígitos: {celular.length}/10
+                                    {celularError && <spanp style={{ fontSize: '10px', color: 'red' }}>{celularError}</spanp>}
                                 </p>
                             </div>
                         </div>
